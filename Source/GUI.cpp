@@ -58,7 +58,7 @@ GUI::GUI() noexcept
     ImGui::StyleColorsDark();
     ImGuiStyle& style = ImGui::GetStyle();
 
-    style.ScrollbarSize = 9.0f;
+    style.ScrollbarSize = 11.5f;
 
     ImGuiIO& io = ImGui::GetIO();
     io.IniFilename = nullptr;
@@ -630,7 +630,7 @@ void GUI::renderConfigWindow(const OtherInterfaces& interfaces, const Memory& me
 
 void GUI::renderGuiStyle2(const EngineInterfaces& engineInterfaces, const ClientInterfaces& clientInterfaces, const OtherInterfaces& interfaces, const Memory& memory, Config& config) noexcept
 {
-    ImGui::Begin("Osiris", nullptr, windowFlags | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
+    ImGui::Begin("Select And Fire", nullptr, windowFlags | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
 
     if (ImGui::BeginTabBar("TabBar", ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyScroll | ImGuiTabBarFlags_NoTooltip)) {
         if (ImGui::BeginTabItem("Aimbot")) {
