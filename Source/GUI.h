@@ -40,6 +40,9 @@ private:
 
     struct {
         ImFont* normal15px = nullptr;
+        ImFont* tahoma34 = nullptr;
+        ImFont* tahoma28 = nullptr;
+        ImFont* unicodeFont = nullptr;
     } fonts;
 
     float timeToNextConfigRefresh = 0.1f;

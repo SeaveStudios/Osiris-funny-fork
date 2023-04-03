@@ -68,7 +68,6 @@ GUI::GUI() noexcept
     ImFontConfig cfg;
     cfg.SizePixels = 15.0f;
 
-#if IS_WIN32()
     if (PWSTR pathToFonts; SUCCEEDED(SHGetKnownFolderPath(FOLDERID_Fonts, 0, nullptr, &pathToFonts))) {
         const std::filesystem::path path{ pathToFonts };
         CoTaskMemFree(pathToFonts);
@@ -77,21 +76,33 @@ GUI::GUI() noexcept
         if (!fonts.normal15px)
             io.Fonts->AddFontDefault(&cfg);
 
+        fonts.tahoma34 = io.Fonts->AddFontFromFileTTF((path / "tahoma.ttf").string().c_str(), 34.0f, &cfg, Helpers::getFontGlyphRanges());
+        if (!fonts.tahoma34)
+            io.Fonts->AddFontDefault(&cfg);
+
+        fonts.tahoma28 = io.Fonts->AddFontFromFileTTF((path / "tahomabd.ttf").string().c_str(), 28.0f, &cfg, Helpers::getFontGlyphRanges());
+        if (!fonts.tahoma28)
+            io.Fonts->AddFontDefault(&cfg);
+
         cfg.MergeMode = true;
         static constexpr ImWchar symbol[]{
             0x2605, 0x2605, // ★
             0
-        };
+    };
         io.Fonts->AddFontFromFileTTF((path / "seguisym.ttf").string().c_str(), 15.0f, &cfg, symbol);
         cfg.MergeMode = false;
-    }
-#else
-    fonts.normal15px = addFontFromVFONT("csgo/panorama/fonts/notosans-regular.vfont", 15.0f, Helpers::getFontGlyphRanges(), false);
-#endif
+}
+
     if (!fonts.normal15px)
         io.Fonts->AddFontDefault(&cfg);
+    if (!fonts.tahoma28)
+        io.Fonts->AddFontDefault(&cfg);
+    if (!fonts.tahoma34)
+        io.Fonts->AddFontDefault(&cfg);
     addFontFromVFONT("csgo/panorama/fonts/notosanskr-regular.vfont", 15.0f, io.Fonts->GetGlyphRangesKorean(), true);
-    addFontFromVFONT("csgo/panorama/fonts/notosanssc-regular.vfont", 17.0f, io.Fonts->GetGlyphRangesChineseFull(), true);
+    addFontFromVFONT("csgo/panorama/fonts/notosanssc-regular.vfont", 15.0f, io.Fonts->GetGlyphRangesChineseFull(), true);
+    constexpr auto unicodeFontSize = 16.0f;
+    fonts.unicodeFont = addFontFromVFONT("csgo/panorama/fonts/notosans-bold.vfont", unicodeFontSize, Helpers::getFontGlyphRanges(), false);
 }
 
 void GUI::render(const EngineInterfaces& engineInterfaces, const ClientInterfaces& clientInterfaces, const OtherInterfaces& interfaces, const Memory& memory, Config& config) noexcept
