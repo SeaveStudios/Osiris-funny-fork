@@ -632,6 +632,24 @@ void GUI::renderGuiStyle2(const EngineInterfaces& engineInterfaces, const Client
 {
     ImGui::Begin("Select And Fire", nullptr, windowFlags | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize);
 
+    ImGuiStyle* Style = &ImGui::GetStyle();
+    Style->WindowRounding = 5.5;
+    Style->WindowBorderSize = 2.5;
+    Style->ChildRounding = 5.5;
+    Style->FrameBorderSize = 2.5;
+    Style->Colors[ImGuiCol_WindowBg] = ImColor(0, 0, 0, 0);
+    Style->Colors[ImGuiCol_ChildBg] = ImColor(31, 31, 31);
+    Style->Colors[ImGuiCol_Button] = ImColor(25, 30, 34);
+    Style->Colors[ImGuiCol_ButtonHovered] = ImColor(25, 30, 34);
+    Style->Colors[ImGuiCol_ButtonActive] = ImColor(19, 22, 27);
+
+    Style->Colors[ImGuiCol_ScrollbarGrab] = ImColor(25, 30, 34);
+    Style->Colors[ImGuiCol_ScrollbarGrabActive] = ImColor(25, 30, 34);
+    Style->Colors[ImGuiCol_ScrollbarGrabHovered] = ImColor(25, 30, 34);
+
+    static auto Name = "Menu";
+    static auto Flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings;
+
     if (ImGui::BeginTabBar("TabBar", ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyScroll | ImGuiTabBarFlags_NoTooltip)) {
         if (ImGui::BeginTabItem("Aimbot")) {
             renderAimbotWindow(config, true);
@@ -663,5 +681,7 @@ void GUI::renderGuiStyle2(const EngineInterfaces& engineInterfaces, const Client
         ImGui::EndTabBar();
     }
 
-    ImGui::End();
+ Style->Colors[ImGuiCol_WindowBg] = ImVec4(0.07f, 0.07f, 0.09f, 0.75f);
+
+ImGui::End();
 }
